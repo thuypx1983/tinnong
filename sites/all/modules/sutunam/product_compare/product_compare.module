@@ -1,0 +1,294 @@
+<?php
+/**
+ * Implements hook_menu().
+ */
+function product_compare_menu()
+{
+
+    // Ajax Callback. Add product to compare list.
+    $items['ajax/product/compare/add'] = array(
+        'title' => 'Get Current User Name',
+        'page callback' => '_product_compare_add',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+ // Ajax Callback. Add product to compare list.
+    $items['ajax/product/compare/remove'] = array(
+        'title' => 'Get Current User Name',
+        'page callback' => '_product_compare_remove',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+
+    $items['product/compare'] = array(
+        'type' => MENU_NORMAL_ITEM,
+        'title' => t('product compare'),
+        'description' => 'product compare page',
+        'page callback' => '_product_compare_page',
+        'access callback' => 'user_access',
+        'access arguments' => array('access content'),
+    );
+
+
+    $items['compare/%'] = array(
+        'type' => MENU_NORMAL_ITEM,
+        'title' => t('product compare'),
+        'description' => 'product compare page',
+        'page callback' => 'compare_page',
+        'page arguments' => array(1),
+        'access callback' => 'user_access',
+        'access arguments' => array('access content'),
+    );
+
+
+    $items['admin/config/product_compare'] = array(
+        'title' => 'product compare setting',
+        'discription' => 'product compare setting french',
+        'type' => MENU_NORMAL_ITEM,
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('product_compare_setting_form'),
+        'access arguments' => array('access adminstration page'),
+        'weight' => 2
+    );
+
+    return $items;
+}
+
+function product_compare_setting_form($form, &$form_state)
+{
+    $form = array();
+
+    ///////////////////////////////////////////////////
+    //facebook
+    //////////////////////////////////////////////////
+    $form['fr'] = array(
+        '#prefix' => '<div>Please add category id for each case, example 1,2,3,4</div>',
+        '#type' => 'fieldset',
+        '#title' => t('Configure table compare'),
+        '#collapsible' => TRUE, // Added
+        '#collapsed' => false,  // Added
+    );
+
+    // To make these fields required
+    $form['fr']['table_fr_1'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Nacelles'),
+        '#required' => TRUE, // Added
+        '#default_value' => variable_get('table_fr_1', ''),
+
+    );
+  $form['fr']['table_fr_2'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Plateformes'),
+        '#required' => TRUE, // Added
+        '#default_value' => variable_get('table_fr_2', ''),
+
+    );
+  $form['fr']['table_fr_3'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Chariots'),
+        '#required' => TRUE, // Added
+        '#default_value' => variable_get('table_fr_3', ''),
+
+    );
+  $form['fr']['table_fr_4'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Mini-grues'),
+        '#required' => TRUE, // Added
+        '#default_value' => variable_get('table_fr_4', ''),
+
+    );
+
+    return system_settings_form($form);
+}
+
+function  compare_page($id){
+    $query = db_select('node', 'n');
+    $query->fields('n', array('nid'));
+    $query->join('field_data_field_category', 't', 't.entity_id=n.nid');
+    $query->condition('entity_type', 'node');
+    $query->condition('bundle', 'product');
+
+    #$language=$GLOBALS['language']->language;
+    $language=$GLOBALS['language']->language;
+    $term_ids=array();;
+    $ar=array(1,2,3,4);
+
+    if(in_array($id,$ar)){
+        $term_ids=variable_get('table_fr_'.$id);
+        $term_ids=explode(',',$term_ids);
+    }else{
+        $term_ids=array(0);
+    }
+
+    $query->condition('t.field_category_tid', $term_ids,'IN');
+    $query->condition('status', 1);
+    $query->orderBy('created', 'DESC');
+    $result= $query->execute()->fetchAll();
+
+    $nids=array();
+    foreach($result as $item){
+        $nids[]=$item->nid;
+    }
+
+    $nodes = entity_load('node', $nids);
+
+    $fields = field_info_instances('node', 'product');
+    if($GLOBALS['language']->language=='en'){
+        foreach($fields as &$instance){
+            $f= field_info_field($instance['field_name']);
+            if (($translate = i18n_field_type_info($f['type'], 'translate_options'))) {
+                $instance['options'] = $translate($f);
+            }
+            $instance['label']=i18n_field_translate_property($instance,'label','en');
+        }
+    }
+
+
+    if(isset($fields['body'])) unset($fields['body']);
+
+    return theme('product_compare_page', array(
+            'title' => '',
+            'content' => '',
+            'item_list' => $nodes,
+            'fields'=>$fields)
+    );
+
+}
+
+function _product_compare_add()
+{
+    $current_lang= $GLOBALS['language']->language;
+
+    $nid = (int)$_POST['nid'];
+    drupal_session_start();
+    if (!isset($_SESSION['product_compare'])) $_SESSION['product_compare'] = array();
+    $node=node_load($nid);
+    $nodes=translation_node_get_translations($node->tnid);
+
+    $ids=$nodes['fr']->nid.'-'.$nodes['en']->nid;
+    $_SESSION['product_compare'][$ids]=array('fr'=>$nodes['fr']->nid,'en'=>$nodes['en']->nid);
+
+    $block = block_load('product_compare', 'product_compare_block');
+    print @drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+
+}
+
+function _product_compare_remove()
+{
+    $current_lang= $GLOBALS['language']->language;
+
+    $nid = (int)$_POST['nid'];
+    drupal_session_start();
+    if (!isset($_SESSION['product_compare'])) $_SESSION['product_compare'] = array();
+    $node=node_load($nid);
+    $nodes=translation_node_get_translations($node->tnid);
+
+    $ids=$nodes['fr']->nid.'-'.$nodes['en']->nid;
+    unset($_SESSION['product_compare'][$ids]);
+
+    $block = block_load('product_compare', 'product_compare_block');
+    print @drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function product_compare_theme() {
+    return array(
+        'product_compare_output' => array(
+            'variables' => array(
+                'title' => NULL,
+                'content' => NULL,
+                'item_list' => NULL,
+            ),
+            'template' => 'templates/product-compare--block',
+        ),
+        'product_compare_page' => array(
+            'variables' => array(
+                'title' => NULL,
+                'content' => NULL,
+                'item_list' => NULL,
+            ),
+            'template' => 'templates/product-compare',
+        ),
+    );
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function product_compare_block_info() {
+    $blocks = array();
+
+    $blocks['product_compare_block'] = array(
+        'info' => t('Product compare block'),
+    );
+
+    return $blocks;
+}
+/**
+ * Implements hook_block_view().
+ */
+function product_compare_block_view($delta = '') {
+    $block = array();
+
+    switch ($delta) {
+        case 'product_compare_block':
+            $block['subject'] = '';
+            $block['content'] = _product_compare_block_content();
+            break;
+    }
+
+    return $block;
+}
+
+function _product_compare_block_content() {
+    $current_lang= $GLOBALS['language']->language;
+    drupal_session_start();
+    $static_title = t('Hello world');
+    $static_content = 'static content';
+    $item_list=$_SESSION['product_compare'];
+    if(count($item_list)>0){
+        $nids=array();
+        foreach($item_list as $item){
+            array_push($nids,$item[$current_lang]);
+        }
+        $item_list=node_load_multiple($nids);
+    }
+    return theme('product_compare_output', array(
+            'title' => $static_title,
+            'content' => $static_content,
+            'item_list' => $item_list)
+    );
+}
+
+function _product_compare_page(){
+    $fields = field_info_instances('node', 'product');
+
+    if(isset($fields['body'])) unset($fields['body']);
+
+    $current_lang= $GLOBALS['language']->language;
+    drupal_session_start();
+    $static_title = t('Hello world');
+    $static_content = 'static content';
+    $item_list=$_SESSION['product_compare'];
+    if(count($item_list)>0){
+        $nids=array();
+        foreach($item_list as $item){
+            array_push($nids,$item[$current_lang]);
+        }
+        $item_list=node_load_multiple($nids);
+    }
+
+    return theme('product_compare_page', array(
+            'title' => $static_title,
+            'content' => $static_content,
+            'item_list' => $item_list,
+            'fields'=>$fields)
+    );
+}
+

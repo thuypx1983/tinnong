@@ -1,0 +1,16 @@
+<?php
+/**
+Implementation of hook_views_query_alter()
+ **/
+function sutunam_views_query_alter(&$view, &$query) {
+
+    if($view->name == "tours_list") {
+        // User the provider uid to make the results distinct: using a taxonomy field for
+        // keyword searches brings up multiple results.
+        foreach($query->fields as $key => $field) {
+            $query->fields[$key]['aggregate'] = TRUE;
+        }
+        $query->add_groupby('node.nid');
+
+    }
+}

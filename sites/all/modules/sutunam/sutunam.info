@@ -1,0 +1,5 @@
+name = Sutunam
+description = Sutunam overwrite some other module.
+project = Sutunam
+core = 7.x
+package = Sutunam

@@ -1,0 +1,6 @@
+name = Product compare
+description = Product compare.
+project = Sutunam
+core = 7.x
+package = User interface
+configure = admin/config/product_compare

@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA;;EAEE;AAOD,6BACA;EACC,OAAO,EAAE,EAAE;EACX,OAAO,EAAE,KAAK;EACd,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;EACZ,QAAQ,EAAE,QAAQ;EAClB,IAAI,EAAE,IAAI;EACV,GAAG,EAAE,IAAI;EACT,OAAO,EAAE,EAAE;AAGZ,sCACA;EACC,IAAI,EAAE,IAAI;EACV,KAAK,EAAE,IAAI;AAGZ,6EAEA;EACC,OAAO,EAAE,IAAI;EACb,OAAO,EAAE,IAAI;;ACgFb,6BACA;EAGE,UAAU,EC1DK,2BAA2B;;ADuE7C,4DACA;EACC,UAAU,ECxEQ,2BAA2B",
+"sources": ["jquery.mmenu.shadows.scss","../../css/_imp/_mixins_colors.scss","../../css/_imp/_variables.scss"],
+"names": [],
+"file": "jquery.mmenu.shadows.css"
+}

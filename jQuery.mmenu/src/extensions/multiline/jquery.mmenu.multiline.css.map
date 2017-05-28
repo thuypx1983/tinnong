@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA;;EAEE;AASD;;;;;qCAEA;EACC,aAAa,EAAE,IAAI;EACnB,WAAW,EAAE,MAAM",
+"sources": ["jquery.mmenu.multiline.scss"],
+"names": [],
+"file": "jquery.mmenu.multiline.css"
+}

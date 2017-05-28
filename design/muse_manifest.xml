@@ -1,0 +1,215 @@
+<manifest alg="2" build="2017.0.2.363" opt="true" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive,cachebuster,textStyling" exportTarget="other" domain="linh.com" resolutions="1x" timestamp="1493007499292">
+  <folder name="css">
+    <file name="site_global.css" crc="78917719"/>
+    <file name="master_a-master.css" crc="167701594" ref="tin-tức:liên-hệ:detail-tin-tức:index"/>
+    <file name="tin-t_c.css" crc="4029279046" ref="tin-tức"/>
+    <file name="li_n-h_.css" crc="3793493707" ref="liên-hệ"/>
+    <file name="detail-tin-t_c.css" crc="127007163" ref="detail-tin-tức"/>
+    <file name="index.css" crc="464271125" ref="index"/>
+    <file name="iefonts_index.css" crc="3773405068" ref="index"/>
+    <file name="iefonts_li_n-h_.css" crc="3807088898" ref="liên-hệ"/>
+    <file name="iefonts_tin-t_c.css" crc="4068731631" ref="tin-tức"/>
+    <file name="iefonts_detail-tin-t_c.css" crc="3985056130" ref="detail-tin-tức"/>
+  </folder>
+  <folder name="scripts">
+    <file name="jquery-1.8.3.min.js" crc="209076791" ref="index:tin-tức:liên-hệ:detail-tin-tức"/>
+    <file name="museutils.js" crc="4232573551" ref="index:tin-tức:liên-hệ:detail-tin-tức"/>
+    <file name="whatinput.js" crc="86476730" ref="index:tin-tức:liên-hệ:detail-tin-tức"/>
+    <file name="museconfig.js" crc="4152223963" ref="index:tin-tức:liên-hệ:detail-tin-tức"/>
+    <file name="jquery.musemenu.js" crc="38860304" ref="index:tin-tức:liên-hệ:detail-tin-tức"/>
+    <file name="jquery.watch.js" crc="3844535323" ref="index:tin-tức:liên-hệ:detail-tin-tức"/>
+    <file name="webpro.js" crc="3770351119" ref="index:tin-tức:liên-hệ:detail-tin-tức"/>
+    <file name="form_check.php" crc="3841221102" ref="index"/>
+    <file name="form_throttle.php" crc="4048049783" ref="index"/>
+    <file name="form_process.php" crc="3899230280" ref="index"/>
+    <file name="html5shiv.js" crc="4241844378" ref="index:tin-tức:liên-hệ:detail-tin-tức"/>
+    <file name="require.js" crc="4234670167" ref="index:tin-tức:liên-hệ:detail-tin-tức"/>
+    <file name="form-u1960.php" crc="456284206" ref="index"/>
+    <file name="jquery.musepolyfill.bgsize.js" crc="3880853905" ref="tin-tức:detail-tin-tức"/>
+    <file name="musewpslideshow.js" crc="4244742588" ref="tin-tức"/>
+    <file name="jquery.museoverlay.js" crc="432750910" ref="tin-tức"/>
+    <file name="touchswipe.js" crc="3912873526" ref="tin-tức"/>
+    <file name="form-u3197.php" crc="181701851" ref="liên-hệ"/>
+    <file name="form-u2786.php" crc="3799225624" ref="detail-tin-tức"/>
+    <file name="form-u2813.php" crc="3944222860" ref="detail-tin-tức"/>
+  </folder>
+  <folder name="images">
+    <file name="logo.svg" crc="3909889139" seo="true" ref="index:tin-tức:liên-hệ:detail-tin-tức">
+      <caption webpage="index" alt=""/>
+      <caption webpage="liên-hệ" alt=""/>
+      <caption webpage="detail-tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+    </file>
+    <file name="logo_poster_.png" crc="504398871" ref="index"/>
+    <file name="slider2-2377c67b76-crop-u289.jpg" crc="504545723" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="certification-1e207f187f.png" crc="4247205030" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="coaching-ba13588d13.png" crc="398527062" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="teacher-5cde1c0a46.png" crc="334105750" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="people-ad6d709826.png" crc="4086681622" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="quy trinh-01-crop-u442.png" crc="56697319" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="quy trinh-02-crop-u452.png" crc="3980630597" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="quy trinh-03-crop-u469.png" crc="4173803259" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="tweeter.png" crc="192439320" ref="index">
+      <caption webpage="index" alt="@ALIGENTH"/>
+      <caption webpage="index" alt="@ALIGENTH"/>
+      <caption webpage="index" alt="@ALIGENTH"/>
+      <caption webpage="index" alt="@ALIGENTH"/>
+      <caption webpage="index" alt="@ALIGENTH"/>
+      <caption webpage="index" alt="@ALIGENTH"/>
+    </file>
+    <file name="6967 -converted--01-01-crop-u1950.png" crc="414336014" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="6967 -converted--01-01-crop-u2146.png" crc="260280774" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="moonlit_by_onimon93-daupo65117x117.jpg" crc="4062540456" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="1492530000_facebook_color-crop-u2089.png" crc="3995988967" seo="true" ref="index:tin-tức:liên-hệ:detail-tin-tức">
+      <caption webpage="index" alt=""/>
+      <caption webpage="liên-hệ" alt=""/>
+      <caption webpage="detail-tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+    </file>
+    <file name="twitter-256.png" crc="287864454" seo="true" ref="index:tin-tức:liên-hệ:detail-tin-tức">
+      <caption webpage="index" alt=""/>
+      <caption webpage="liên-hệ" alt=""/>
+      <caption webpage="detail-tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+    </file>
+    <file name="instagram_solid-256.png" crc="107497291" seo="true" ref="index:tin-tức:liên-hệ:detail-tin-tức">
+      <caption webpage="index" alt=""/>
+      <caption webpage="liên-hệ" alt=""/>
+      <caption webpage="detail-tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+    </file>
+    <file name="linked_in_online_social_media-128.png" crc="4222666888" seo="true" ref="index:tin-tức:liên-hệ:detail-tin-tức">
+      <caption webpage="index" alt=""/>
+      <caption webpage="liên-hệ" alt=""/>
+      <caption webpage="detail-tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+    </file>
+    <file name="up-256.png" crc="3869938055" seo="true" ref="index:tin-tức:liên-hệ:detail-tin-tức">
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="liên-hệ" alt=""/>
+      <caption webpage="liên-hệ" alt=""/>
+      <caption webpage="detail-tin-tức" alt=""/>
+      <caption webpage="detail-tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+    </file>
+    <file name="la_lune_by_kelogsloops-d9kfll1.jpg" crc="3823788106" ref="tin-tức">
+      <caption webpage="tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+    </file>
+    <file name="la_lune_by_kelogsloops-d9kfll1-u2331-r-fr.png" crc="3794962985" ref="tin-tức"/>
+    <file name="with_the_rest_by_kelogsloops-dafz44s.jpg" crc="201415594" ref="tin-tức">
+      <caption webpage="tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+    </file>
+    <file name="with_the_rest_by_kelogsloops-dafz44s-u2323-r-fr.png" crc="9258936" ref="tin-tức"/>
+    <file name="flute_by_guweiz-dar1pk8.jpg" crc="4199937015" ref="tin-tức">
+      <caption webpage="tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+    </file>
+    <file name="flute_by_guweiz-dar1pk8-u2307-r-fr.png" crc="4088652648" ref="tin-tức"/>
+    <file name="162_by_mcptato-daylvh1.jpg" crc="529960168" ref="tin-tức">
+      <caption webpage="tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+    </file>
+    <file name="162_by_mcptato-daylvh1-u2314-r-fr.png" crc="2727243" ref="tin-tức"/>
+    <file name="overgrowth_by_kelogsloops-dal6o14.jpg" crc="359139413" ref="tin-tức">
+      <caption webpage="tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+    </file>
+    <file name="overgrowth_by_kelogsloops-dal6o14-u2155-r-fr.png" crc="181736841" ref="tin-tức"/>
+    <file name="insomnia_by_kelogsloops-d966pvo.jpg" crc="3880201619" ref="tin-tức">
+      <caption webpage="tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+      <caption webpage="tin-tức" alt=""/>
+    </file>
+    <file name="insomnia_by_kelogsloops-d966pvo-u2257-r-fr.png" crc="3841281860" ref="tin-tức"/>
+    <file name="the_wilderness_by_kelogsloops-d9362em.jpg" crc="447881173" ref="detail-tin-tức">
+      <caption webpage="detail-tin-tức" alt=""/>
+    </file>
+    <file name="tw.png" crc="4076242544" seo="true" ref="detail-tin-tức">
+      <caption webpage="detail-tin-tức" alt=""/>
+      <caption webpage="detail-tin-tức" alt=""/>
+    </file>
+    <file name="fb.png" crc="79035061" seo="true" ref="detail-tin-tức">
+      <caption webpage="detail-tin-tức" alt=""/>
+      <caption webpage="detail-tin-tức" alt=""/>
+    </file>
+    <file name="in.png" crc="3900177456" seo="true" ref="detail-tin-tức">
+      <caption webpage="detail-tin-tức" alt=""/>
+      <caption webpage="detail-tin-tức" alt=""/>
+    </file>
+    <file name="15-crop-u2758.png" crc="241366114" seo="true" ref="detail-tin-tức">
+      <caption webpage="detail-tin-tức" alt=""/>
+    </file>
+    <file name="moonlit_by_onimon93-daupo65-crop-u2771.jpg" crc="3971771918" seo="true" ref="detail-tin-tức">
+      <caption webpage="detail-tin-tức" alt=""/>
+    </file>
+    <file name="15-crop-u2803.png" crc="241366114" seo="true" ref="detail-tin-tức">
+      <caption webpage="detail-tin-tức" alt=""/>
+    </file>
+    <file name="untitled-1.png" crc="100635528" seo="true" ref="detail-tin-tức">
+      <caption webpage="detail-tin-tức" alt=""/>
+    </file>
+    <file name="rounded rectangle 1 copy 2.png" crc="225410898" seo="true" ref="detail-tin-tức">
+      <caption webpage="detail-tin-tức" alt=""/>
+    </file>
+    <file name="ballerina-2016-movie-img-2048x1152.jpg" crc="32626687" seo="true" ref="detail-tin-tức">
+      <caption webpage="detail-tin-tức" alt=""/>
+    </file>
+    <file name="el8oukqc8hjm7sypr5igrp_qwfk.jpg" crc="232525783" seo="true" ref="detail-tin-tức">
+      <caption webpage="detail-tin-tức" alt=""/>
+    </file>
+    <file name="screen-shot-2014-08-18-at-125908-pm.jpg" crc="340790288" seo="true" ref="detail-tin-tức">
+      <caption webpage="detail-tin-tức" alt=""/>
+    </file>
+    <file name="la_fille_du_patron.jpg" crc="4034499458" seo="true" ref="detail-tin-tức">
+      <caption webpage="detail-tin-tức" alt=""/>
+    </file>
+    <file name="quy trinh-04-crop-u3374.png" crc="3977480572" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="-af837674c1ee8e607c38b0b26b14b655938988efdb0a01be77-pimgpsh_fullsize_distr.jpg" crc="3931105811" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+    </file>
+  </folder>
+  <file name="index.html" crc="64469378" seo="true" mt="1493007484959" redirect="true"/>
+  <file name="tin-tức.html" crc="3942781084" seo="true" mt="1493006822753" redirect="true"/>
+  <file name="liên-hệ.html" crc="4216905114" seo="true" mt="1493006822753" redirect="true"/>
+  <file name="detail-tin-tức.html" crc="50357964" seo="true" mt="1493006822753" redirect="true"/>
+</manifest>

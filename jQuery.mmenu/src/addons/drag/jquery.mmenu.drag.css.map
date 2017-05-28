@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA;;EAEE;AAMD;uCAEA;EACC,mBAAmB,EAAE,EAAE",
+"sources": ["jquery.mmenu.drag.scss"],
+"names": [],
+"file": "jquery.mmenu.drag.css"
+}

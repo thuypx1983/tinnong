@@ -1,0 +1,634 @@
+<?php
+
+function product_cart_init() {
+    drupal_add_js(drupal_get_path('module', 'product_cart') .'/js/product_cart.js');
+}
+/**
+ * Implements hook_menu().
+ */
+function product_cart_menu()
+{
+
+    // Ajax Callback. Add product to cart list.
+    $items['ajax/product/cart/add'] = array(
+        'title' => 'Get Current User Name',
+        'page callback' => '_product_cart_add',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+    $items['ajax/product/cart/push'] = array(
+        'title' => 'Get Current User Name',
+        'page callback' => '_product_cart_push',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+    // Ajax Callback. remmove product to cart list.
+    $items['ajax/product/cart/remove'] = array(
+        'title' => 'Get Current User Name',
+        'page callback' => '_product_cart_remove',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+    // Ajax Callback. clear all.
+    $items['ajax/product/cart/remove_all'] = array(
+        'title' => 'Get Current User Name',
+        'page callback' => '_product_cart_remove_all',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+
+    $items['product/cart'] = array(
+        'type' => MENU_NORMAL_ITEM,
+        'title' => t('product cart'),
+        'description' => 'product cart page',
+        'page callback' => '_product_cart_page',
+        'access callback' => 'user_access',
+        'access arguments' => array('access content'),
+    );
+
+    /////////////////////////////
+    $items['ajax/product/cart/getfeture'] = array(
+        'title' => 'Get engine',
+        'page callback' => '_product_cart_get_feature',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+    $items['ajax/product/cart/add_option'] = array(
+        'title' => 'Add more option',
+        'page callback' => '_product_cart_add_option',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+    $items['ajax/product/cart/add_option'] = array(
+        'title' => 'Add more option',
+        'page callback' => '_product_cart_add_option',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+    $items['ajax/product/cart/change_quantity'] = array(
+        'title' => 'Add more option',
+        'page callback' => '_product_change_quantity',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+    $items['ajax/product/cart/change_duration'] = array(
+        'title' => 'Add more option',
+        'page callback' => '_product_change_duration',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+
+    $items['ajax/product/cart/change_date'] = array(
+        'title' => 'Add more option',
+        'page callback' => '_product_change_date',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+
+    return $items;
+}
+function _product_change_quantity(){
+    if($_POST['type']=='product'){
+        $nid = $_POST['pdid'];
+        $_SESSION['product_cart'][$nid]['quantity']=$_POST['quantity'];
+    }elseif($_POST['type']=='option'){
+        $_SESSION['product_cart_option'][$_POST['pdid']]['quantity']=$_POST['quantity'];
+    }
+}
+function _product_change_duration(){
+
+    $nid = $_POST['nid'];
+    if(strlen($nid)>12){
+        $_SESSION['product_cart_option'][$nid]['duration']=$_POST['value'];
+    }else{
+        $_SESSION['product_cart'][$nid]['duration']=$_POST['value'];
+    }
+}
+function _product_change_date(){
+
+    $nid = $_POST['nid'];
+    if(strlen($nid)>12){
+        $_SESSION['product_cart_option'][$nid]['date']=$_POST['date'];
+    }else{
+        $_SESSION['product_cart'][$nid]['date']=$_POST['date'];
+    }
+}
+
+function _product_cart_add()
+{
+    /*
+    $current_lang= $GLOBALS['language']->language;
+
+    $nid = $_POST['nid'];
+    drupal_session_start();
+    if (!isset($_SESSION['product_cart'])) $_SESSION['product_cart'] = array();
+    $node=node_load($nid);
+    $nodes=translation_node_get_translations($node->tnid);
+
+    $ids=$nodes['fr']->nid.'-'.$nodes['en']->nid;
+    $_SESSION['product_cart'][$ids]=array('fr'=>$nodes['fr']->nid,'en'=>$nodes['en']->nid);
+
+    $block = block_load('product_cart', 'product_cart_block');
+    $json=array();
+    $json['block_cart']=@drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+
+
+    ##popup
+    $item_list=$_SESSION['product_cart'];
+    if(count($item_list)>0){
+        $nids=array();
+        foreach($item_list as $item){
+            array_push($nids,$item[$current_lang]);
+        }
+        $item_list=node_load_multiple($nids);
+
+        $items=array();
+        foreach($item_list as $item){
+            $items[$item->field_category['und'][0]['tid']][]=$item;
+        }
+    }
+
+    $json['popup_cart']= theme('product_cart_popup', array(
+            'title' => '',
+            'content' => '',
+            'item_list' => $items,
+
+        )
+    );
+    */
+
+    $nid = $_POST['nid'];
+    $quantity = (int)$_POST['quantity'];
+    drupal_session_start();
+    if (!isset($_SESSION['product_cart'])) $_SESSION['product_cart'] = array();
+    if($nid){
+        if(!isset($_SESSION['product_cart'][$nid])){
+            $_SESSION['product_cart'][$nid]=array('nid'=>$nid,'quantity'=>$quantity,'duration'=>1,'date'=>date('Y-m-d'));
+        }else{
+            $_SESSION['product_cart'][$nid]['quantity']=$_SESSION['product_cart'][$nid]['quantity']+$quantity;
+        }
+    }
+
+    $block = block_load('product_cart', 'product_cart_block');
+    $json=array();
+    $json['block_cart']=@drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+
+    #popup
+    $items=$_SESSION['product_cart'];
+    foreach($items as &$item){
+        $item['node']=node_load($item['nid']);
+    }
+    unset($item);
+
+
+    $json['popup_cart']= theme('product_cart_popup', array(
+            'title' => '',
+            'content' => '',
+            'item_list' => $items,
+
+        )
+    );
+    echo drupal_json_encode($json);
+    drupal_exit();
+
+
+}
+function _product_cart_push()
+{
+    $current_lang= $GLOBALS['language']->language;
+
+    $nid = $_GET['nid'];
+    drupal_session_start();
+    drupal_session_start();
+    if (!isset($_SESSION['product_cart'])) $_SESSION['product_cart'] = array();
+    if($nid){
+        if(!$_SESSION['product_cart'][$nid]){
+            $_SESSION['product_cart'][$nid]=array('nid'=>$nid,'quantity'=>1,'duration'=>1,'date'=>date('Y-m-d'));
+        }
+    }
+
+    drupal_goto(url('node/30'));
+
+}
+
+function _product_cart_remove()
+{
+    $current_lang= $GLOBALS['language']->language;
+
+   if($_POST['type']=='product'){
+       $nid = $_POST['nid'];
+       drupal_session_start();
+       unset($_SESSION['product_cart'][$nid]);
+   }elseif($_POST['type']=='option'){
+       unset($_SESSION['product_cart_option'][$_POST['nid']]);
+   }
+
+    $block = block_load('product_cart', 'product_cart_block');
+    print @drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+
+}
+
+function _product_cart_remove_all()
+{
+    unset($_SESSION['product_cart']);
+
+    $block = block_load('product_cart', 'product_cart_block');
+    print @drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+
+}
+
+function _product_cart_get_feature(){
+    global $language ;
+    $lang_name = $language->language ;
+    $type=@$_POST['type'];
+    $json=array(
+        'option'=>"",
+        'items'=>"",
+    );
+    switch($type){
+        case 'engine':
+            $engines=getEngine($_POST['catid']);
+
+
+            $json['option'].='<option value="">'.t('Energy').'</option>';
+            foreach($engines as $engine){
+
+                $t=taxonomy_term_load($engine->taxonomy_term_data_field_data_field_engine_tid);
+
+                $json['option'].= '<option class="option-value" value="'.$engine->taxonomy_term_data_field_data_field_engine_tid.'">'.i18n_taxonomy_term_name($t,$lang_name).'</option>';
+            }
+            break;
+        case 'height':
+            //$h=getNodeByFields('field_working_height',array('field_category'=>$_POST['catid'],'field_engine'=>$_POST['energyid']));
+            //$h=getNodeByFields('field_working_height',array('field_category'=>$_POST['catid']));
+            $heights=getHeight($_POST['catid'],$_POST['energyid']);
+            $json['option'].= '<option value="">'.t('Height').'</option>';
+            foreach($heights as $height){
+                $json['option'].= '<option class="option-value" value="'.$height->field_working_height_value.'">'.$height->field_working_height_value.'</option>';
+            }
+            break;
+        case 'width':
+            $widths=getWidth($_POST['catid'],$_POST['energyid'],$_POST['height']);
+            $json['option'].= '<option value="">'.t('Width').'</option>';
+            foreach($widths as $width){
+                $json['option'].= '<option class="option-value" value="'.$width->field_total_width_value.'">'.$width->field_total_width_value.'</option>';
+            }
+            break;
+        case 'maximum_charge':
+            $widths=getMaximumCharge($_POST['catid'],$_POST['energyid'],$_POST['height'],$_POST['width']);
+
+            $json['option'].= '<option value="">'.t('Maximum charge').'</option>';
+            foreach($widths as $width){
+                $json['option'].= '<option class="option-value" value="'.$width->field_capacity_value.'">'.$width->field_capacity_value.'</option>';
+            }
+            break;
+        case 'maximum_range':
+            $widths=getMaximumRange($_POST['catid'],$_POST['energyid'],$_POST['height'],$_POST['width'],floatval($_POST['maximum_charge']));
+
+            $json['option'].= '<option value="">'.t('Maximum Range').'</option>';
+            foreach($widths as $width){
+                $json['option'].= '<option class="option-value" value="'.$width->field_range_value.'">'.$width->field_range_value.'</option>';
+            }
+            break;
+        default:
+            break;
+    }
+    drupal_json_output($json);
+    drupal_exit();
+
+}
+
+function _product_cart_add_option(){
+    if($GLOBALS['language']->language==en){
+        $langcode='fr';
+    }else{
+        $langcode='en';
+    }
+
+    $category=array();
+    $term_cate = taxonomy_term_load($_POST['#category_product']);
+    $translated_term_cate = i18n_taxonomy_term_get_translation($term_cate, $langcode);
+    $category[$GLOBALS['language']->language]=$term_cate;
+    $category[$langcode]=$translated_term_cate;
+
+
+    $energy=array();
+    if($_POST['#energy']){
+        $term_energy = taxonomy_term_load($_POST['#energy']);
+        $translated_term_energy = i18n_taxonomy_term_get_translation($term_energy, $langcode);
+        $energy[$GLOBALS['language']->language]=$term_energy;
+        $energy[$langcode]=$translated_term_energy;
+    }
+
+    if(!$translated_term_cate) return;
+
+    $item=array(
+        'category_product'=>$category,
+        'energy'=>$energy,
+        'height'=>$_POST['#height'],
+        'width'=>$_POST['#width'],
+        'maximum_charge'=>$_POST['#maximum_charge'],
+        'maximum_range'=>$_POST['#maximum_range'],
+        'quantity'=>1,
+        'duration'=>1,
+        'date'=>date('Y-m-d')
+    );
+    if(!isset($_SESSION['product_cart_option'])){
+        $_SESSION['product_cart_option']=array();
+    }
+    $item['id']=md5(drupal_random_bytes(32));
+    $_SESSION['product_cart_option'][$item['id']]=$item;
+
+    print theme('product_form_items', array(
+        'products' => $_SESSION['product_cart'],
+        'options' => $_SESSION['product_cart_option'],
+        'language' => $GLOBALS['language']->language,
+    ));
+}
+
+/**
+ * Implements hook_eme().
+ */
+function product_cart_theme() {
+    return array(
+        'product_cart_output' => array(
+            'variables' => array(
+                'title' => NULL,
+                'content' => NULL,
+                'item_list' => NULL,
+                'option_list' => NULL,
+                'language' => NULL,
+            ),
+            'template' => 'templates/product-cart--block',
+        ),
+        'product_cart_popup' => array(
+            'variables' => array(
+                'title' => NULL,
+                'content' => NULL,
+                'item_list' => NULL,
+                'option_list' => NULL,
+                'language' => NULL,
+            ),
+            'template' => 'templates/product-cart-popup',
+        ),
+        'product_cart_page' => array(
+            'variables' => array(
+                'title' => NULL,
+                'content' => NULL,
+                'item_list' => NULL,
+            ),
+            'template' => 'templates/product-cart',
+        ),
+        'product_form_items' => array(
+            'variables' => array(
+                'title' => NULL,
+                'content' => NULL,
+                'products' => NULL,
+                'products' => NULL,
+                'language' => NULL,
+            ),
+            'template' => 'templates/product-form-items',
+        ),
+        'product_form_items_quantity' => array(
+            'variables' => array(
+                'title' => NULL,
+                'content' => NULL,
+                'products' => NULL,
+                'products' => NULL,
+                'language' => NULL,
+            ),
+            'template' => 'templates/product-form-items-quantity',
+        ),
+        'product_form_all_items_quantity' => array(
+            'variables' => array(
+                'title' => NULL,
+            ),
+            'template' => 'templates/product-form-all-items-quantity',
+        ),
+        'product_filter' => array(
+            'variables' => array(
+                'title' => NULL,
+                'content' => NULL,
+                'products' => NULL,
+            ),
+            'template' => 'templates/product-filter',
+        ),
+        'product_form_header_step' => array(
+            'variables' => array(
+            ),
+            'template' => 'templates/product-form-header-step',
+        ),
+        'product_search_items' => array(
+            'variables' => array(
+                'products'=>NULL
+            ),
+            'template' => 'templates/product-search-items',
+        ),
+    );
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function product_cart_block_info() {
+    $blocks = array();
+
+    $blocks['product_cart_block'] = array(
+        'info' => t('Product cart block'),
+    );
+
+    return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function product_cart_block_view($delta = '') {
+    $block = array();
+
+    switch ($delta) {
+        case 'product_cart_block':
+            $block['subject'] = '';
+            $block['content'] = _product_cart_block_content();
+            break;
+    }
+
+    return $block;
+}
+
+function _product_cart_block_content() {
+    $current_lang= $GLOBALS['language']->language;
+    drupal_session_start();
+    $static_title = t('Hello world');
+    $static_content = 'static content';
+    $item_list=$_SESSION['product_cart'];
+    if(count($item_list)>0){
+        $nids=array_keys($item_list);
+        $item_list=node_load_multiple($nids);
+
+        $items=array();
+        foreach($item_list as $item){
+           $items[$item->field_category['und'][0]['tid']][]=$item;
+        }
+    }
+    $option_list=array();
+    if(isset($_SESSION['product_cart_option'])) $option_list=$_SESSION['product_cart_option'];
+    return theme('product_cart_output', array(
+            'title' => $static_title,
+            'content' => $static_content,
+            'item_list' => $items,
+            'option_list' => $option_list,
+
+        )
+    );
+}
+
+function _product_cart_page(){
+    $current_lang= $GLOBALS['language']->language;
+    drupal_session_start();
+    $static_title = t('Hello world');
+    $static_content = 'static content';
+    $item_list=$_SESSION['product_cart'];
+    if(count($item_list)>0){
+        $nids=array();
+        foreach($item_list as $item){
+            array_push($nids,$item[$current_lang]);
+        }
+        $item_list=node_load_multiple($nids);
+    }
+
+    return theme('product_cart_page', array(
+            'title' => $static_title,
+            'content' => $static_content,
+            'item_list' => $item_list
+        )
+    );
+}
+
+function product_cart_form_alter( &$form, &$form_state,$form_id ){
+
+    // you'll want to limit your altering to specific forms
+    if ($form_id == 'webform_client_form_21') {
+
+        drupal_session_start();
+        $form['submitted']['product_list']['products']['#value'] =json_encode($_SESSION['product_cart']);
+
+        #if(!isset($_SESSION['product_cart'])) return;
+        $current_lang= $GLOBALS['language']->language;
+        $products=array();
+        $item_list=$_SESSION['product_cart'];
+
+        if(count($item_list)>0){
+            $products=node_load_multiple(array_keys($item_list));
+        }
+        $form['submitted']['product_list']['table']=array(
+            '#prefix'=>'<table class="table table-bordered">',
+            '#suffix'=>'</table>',
+        );
+        $form['submitted']['product_list']['table']['each_item']['product_1']['product-header']=array(
+            '#prefix'=>'<thead><tr>
+                <th>Tên sản phẩm</th>
+                <th style="text-align: right">Số lượng</th>
+                <th style="text-align: right">Đơn giá</th>
+                <th style="text-align: right">Thành tiền</th>
+                <th>XÓa</th>',
+            '#suffix'=>'</tr></thead>',
+        );
+        $total=0;
+
+        foreach($products as $product){
+            $subtotal=$product->field_price['und'][0]['value']*$item_list[$product->nid]['quantity'];
+            $total+=$subtotal;
+            $form['submitted']['product_list']['table']['each_item']['product_'.$product->nid]=array(
+                '#prefix'=>'<tr class="product-item" data-pid="'.$product->nid.'">',
+                '#suffix'=>'</tr>',
+            );
+             $form['submitted']['product_list']['table']['each_item']['product_'.$product->nid]['product-name']=
+                array(
+                    '#prefix'=>'<td>'.$product->title,
+                    '#suffix'=>'</td>',
+                );
+            $form['submitted']['product_list']['table']['each_item']['product_'.$product->nid]['product_quantity']=
+                array(
+                    '#prefix'=>'<td style="text-align: right" class="row_item product-quanity"> <input type="number" min="1" value="'.$item_list[$product->nid]['quantity'].'">',
+                    '#suffix'=>'</td>',
+                );
+            $form['submitted']['product_list']['table']['each_item']['product_'.$product->nid]['product-price']=
+                array(
+                    '#prefix'=>'<td style="text-align: right" class="row_item product-price " data-price="'.$product->field_price['und'][0]['value'].'">'.number_format($product->field_price['und'][0]['value']),
+                    '#suffix'=>'</td>',
+                );
+            $form['submitted']['product_list']['table']['each_item']['product_'.$product->nid]['product-subtotal']=
+                array(
+                    '#prefix'=>'<td style="text-align: right" class="row_item product-subtotal">'.number_format($subtotal),
+                    '#suffix'=>'</td>',
+                );
+            $form['submitted']['product_list']['table']['each_item']['product_'.$product->nid]['product-remove']=
+                array(
+                    '#prefix'=>'<td class="row_item product-remove"><i class="fa fa-trash"></i>',
+                    '#suffix'=>'</td>',
+                );
+
+        }
+        $form['submitted']['product_list']['table']['each_item']['product_2']['product-footer']=array(
+            '#prefix'=>'<tfoot>
+                <tr>
+                    <th colspan="4" style="text-align: right; color: #e43a3d">THÀNH TIỀN</th>
+                    <th class="cart-total" style="color: #e43a3d">'.number_format($total).'đ</th>
+                </tr>
+                <tr>
+                    <th colspan="4" style="text-align: right">VAT(nếu yêu cầu)</th>
+                    <th class="cart-total" style="color: #e43a3d">10%</th>
+                </tr>
+                <tr>
+                    <th colspan="4" style="text-align: right">THÀNH TIỀN</th>
+                    <th class="cart-total" style="color: #e43a3d">'.number_format($total+$total/10).'đ</th>
+                </tr>
+                ',
+            '#suffix'=>'</tfoot>',
+        );
+
+       }
+}
+
+
+function product_cart_mail_alter(&$message){
+    if ($message['module'] == 'webform' && $message['params']['node']->nid==21){
+        unset($_SESSION['product_cart']);
+        unset($_SESSION['product_cart_option']);
+    }
+}
+
+function product_cart_webform_submission_render_alter(&$renderable) {
+    if($renderable['#node']->nid==21){
+        $product=$renderable['product_list']['products']['#value'];
+        $product=json_decode($product,true);
+        if($product){
+            #product list
+           $product_lists='';
+            foreach($product as $item){
+                $product_lists.="<table width='100%'>";
+                $node=node_load($item['nid']);
+                $product_lists.="<tr><td><h4 style='color: #3d3d3d; font-size: 12px;font-weight: bold;text-transform: uppercase; margin-bottom:0;'>●{$node->title} <span style='color:#e94635;text-transform: none;'>x{$item['quantity']}</span></h4></td></tr>
+                        <tr>
+                            <td class='identy-product' style='padding: 0 0 0px 10px;'>
+                                <p style='margin: 0 0 0 0px; font-weight: normal;color: #818181; font-size: 12px;line-height: 20px;'>Đơn giá : <strong style='color: #303030; font-weight: bold;'>".number_format($node->field_price['und'][0]['value'])."đ</strong></p>
+                                <p style='margin: 0 0 0 0px;font-weight: normal;color: #818181; font-size: 12px;line-height: 20px;'>vat : <strong style='color: #303030; font-weight: bold;'>10%</strong></p>
+                            </td>
+                        </tr>";
+                $product_lists.="</table>";
+            }
+
+            $renderable['product_list']['products']['#format']='text';
+            $renderable['product_list']['products']['#value']=$product_lists;
+        }
+    }
+}
