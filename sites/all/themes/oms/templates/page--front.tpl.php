@@ -68,17 +68,10 @@
 <div id="wrap">
 
   <header id="header" class="clearfix" role="banner">
-
-    <div>
-      <?php if ($logo): ?>
-       <div id="logo">
-        <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>"><img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" /></a>
-        </div>
-      <?php endif; ?>
-      <hgroup id="sitename">
-        <h2><a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>"><?php print $site_name; ?></a></h2>
-        <p><?php if ($site_slogan): ?><?php print $site_slogan; ?><?php endif; ?></p><!--site slogan-->
-      </hgroup>
+    <div class="container">
+      <div class="row">
+        <?php print render($page['header']); ?>
+      </div>
     </div>
     <nav id="navigation" class="clearfix" role="navigation">
       <div id="main-menu">
@@ -94,7 +87,7 @@
     </nav><!-- end main-menu -->
   </header>
   
-  <?php print render($page['header']); ?>
+
 
   <?php print $messages; ?>
 
