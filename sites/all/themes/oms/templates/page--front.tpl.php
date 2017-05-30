@@ -95,29 +95,34 @@
   <?php if ($page['homequotes']): ?>
   <div id="home-quote"> <?php print render($page['homequotes']); ?></div>
   <?php endif; ?>
-  <?php
-  if($page['home_high1'] || $page['home_high2']){
-    ?>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-9"><?php print render($page['home_high1']); ?></div>
-        <div class="col-md-3"><?php print render($page['home_high2']); ?></div>
-      </div>
-    </div>
-  <?php
-  }
-  ?>
+
 
 
   <div id="main" class="clearfix">
     <div class="container">
+
       <div class="row">
         <section id="post-content" role="main" class="col-md-9">
+
           <?php if ($page['content_top']): ?><div id="content_top"><?php print render($page['content_top']); ?></div><?php endif; ?>
+
 
           <?php if (!empty($tabs['#primary'])): ?><div class="tabs-wrapper clearfix"><?php print render($tabs); ?></div><?php endif; ?>
           <?php print render($page['help']); ?>
           <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
+          <?php
+          if($page['home_high1'] || $page['home_high2']){
+            ?>
+
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-6"><?php print render($page['home_high1']); ?></div>
+                <div class="col-md-6"><?php print render($page['home_high2']); ?></div>
+              </div>
+            </div>
+          <?php
+          }
+          ?>
           <?php print render($page['content']); ?>
         </section> <!-- /#main -->
 
