@@ -95,34 +95,43 @@
   <?php if ($page['homequotes']): ?>
   <div id="home-quote"> <?php print render($page['homequotes']); ?></div>
   <?php endif; ?>
+  <?php
+  if($page['home_high1'] || $page['home_high2']){
+    ?>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9"><?php print render($page['home_high1']); ?></div>
+        <div class="col-md-3"><?php print render($page['home_high2']); ?></div>
+      </div>
+    </div>
+  <?php
+  }
+  ?>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-9"><?php print render($page['home_high1']); ?></div>
-      <div class="col-md-3"><?php print render($page['home_high2']); ?></div>
+
+  <div id="main" class="clearfix">
+    <div class="container">
+      <div class="row">
+        <section id="post-content" role="main" class="col-md-9">
+          <?php if ($page['content_top']): ?><div id="content_top"><?php print render($page['content_top']); ?></div><?php endif; ?>
+
+          <?php if (!empty($tabs['#primary'])): ?><div class="tabs-wrapper clearfix"><?php print render($tabs); ?></div><?php endif; ?>
+          <?php print render($page['help']); ?>
+          <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
+          <?php print render($page['content']); ?>
+        </section> <!-- /#main -->
+
+        <?php if ($page['sidebar_first']): ?>
+          <aside id="sidebar" role="complementary" class="sidebar col-md-3">
+            <?php print render($page['sidebar_first']); ?>
+          </aside>  <!-- /#sidebar-first -->
+        <?php endif; ?>
+      </div>
+
     </div>
   </div>
-  
-  <?php if (theme_get_setting('show_front_content') == 1): ?>
-    <div id="main" class="clearfix">
-      <section id="post-content" role="main">
-        <?php if ($page['content_top']): ?><div id="content_top"><?php print render($page['content_top']); ?></div><?php endif; ?>
+  <div class="clear"></div>
 
-        <?php if (!empty($tabs['#primary'])): ?><div class="tabs-wrapper clearfix"><?php print render($tabs); ?></div><?php endif; ?>
-        <?php print render($page['help']); ?>
-        <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
-        <?php print render($page['content']); ?>
-      </section> <!-- /#main -->
-
-      <?php if ($page['sidebar_first']): ?>
-        <aside id="sidebar" role="complementary" class="sidebar clearfix">
-         <?php print render($page['sidebar_first']); ?>
-        </aside>  <!-- /#sidebar-first -->
-      <?php endif; ?>
-    </div>
-    <div class="clear"></div>
-  <?php endif; ?>
-  
   <?php if ($page['footer_first'] || $page['footer_second'] || $page['footer_third'] || $page['footer_fourth']): ?>
     <div id="footer-saran" class="clearfix">
      <div id="footer-wrap">
