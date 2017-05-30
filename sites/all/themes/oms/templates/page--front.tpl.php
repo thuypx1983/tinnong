@@ -72,19 +72,20 @@
       <div class="row">
         <?php print render($page['header']); ?>
       </div>
-    </div>
-    <nav id="navigation" class="clearfix" role="navigation">
-      <div id="main-menu">
-        <?php 
+      <nav id="navigation" class="clearfix" role="navigation">
+        <div id="main-menu">
+          <?php
           if (module_exists('i18n_menu')) {
             $main_menu_tree = i18n_menu_translated_tree(variable_get('menu_main_links_source', 'main-menu'));
           } else {
             $main_menu_tree = menu_tree(variable_get('menu_main_links_source', 'main-menu'));
           }
           print drupal_render($main_menu_tree);
-        ?>
-      </div>
-    </nav><!-- end main-menu -->
+          ?>
+        </div>
+      </nav><!-- end main-menu -->
+    </div>
+
   </header>
   
 
@@ -94,20 +95,13 @@
   <?php if ($page['homequotes']): ?>
   <div id="home-quote"> <?php print render($page['homequotes']); ?></div>
   <?php endif; ?>
-  
-  <?php if ($page['home_high1'] || $page['home_high2'] || $page['home_high3']): ?>
-    <div id="home-highlights" class="clearfix">
-     <?php if ($page['home_high1']): ?>
-     <div class="home-highlight-box"><?php print render($page['home_high1']); ?></div>
-     <?php endif; ?>
-     <?php if ($page['home_high2']): ?>
-     <div class="home-highlight-box"><?php print render($page['home_high2']); ?></div>
-     <?php endif; ?>
-     <?php if ($page['home_high3']): ?>
-     <div class="home-highlight-box remove-margin"><?php print render($page['home_high3']); ?></div>
-     <?php endif; ?>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9"><?php print render($page['home_high1']); ?></div>
+      <div class="col-md-3"><?php print render($page['home_high2']); ?></div>
     </div>
-  <?php endif; ?>
+  </div>
   
   <?php if (theme_get_setting('show_front_content') == 1): ?>
     <div id="main" class="clearfix">
