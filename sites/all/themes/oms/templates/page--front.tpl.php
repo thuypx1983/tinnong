@@ -123,6 +123,15 @@
           <?php
           }
           ?>
+          <row>
+            <?php
+            if($page['home_block_1']){ print render($page['home_block_1']);}
+            if($page['home_block_2']){ print render($page['home_block_2']);}
+            if($page['home_block_3']){ print render($page['home_block_3']);}
+            if($page['home_block_4']){ print render($page['home_block_4']);}
+            if($page['home_block_5']){ print render($page['home_block_5']);}
+            ?>
+          </row>
           <?php print render($page['content']); ?>
         </section> <!-- /#main -->
 
